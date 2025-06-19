@@ -42,6 +42,7 @@ async function loadQuote() {
 }
 
 
+
 // To-Do Section
 const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
@@ -59,24 +60,17 @@ todoInput.addEventListener('keypress', function (e) {
   }
 });
 
-// Dark Mode Toggle
+// ✅ Dark Mode Toggle with LocalStorage
 function toggleDarkMode() {
   document.documentElement.classList.toggle('dark');
-
-  // Optional: Save user's preference
-  if (document.documentElement.classList.contains('dark')) {
-    localStorage.setItem('theme', 'dark');
-  } else {
-    localStorage.setItem('theme', 'light');
-  }
+  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 }
 
-// On load, apply saved theme
+// ✅ Load saved dark mode
 if (localStorage.getItem('theme') === 'dark') {
   document.documentElement.classList.add('dark');
 }
 
-
-// Run on Page Load
-loadWeather();
+// ✅ Load APIs on page load
 loadQuote();
+loadWeather();
