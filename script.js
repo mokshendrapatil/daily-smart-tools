@@ -1,6 +1,6 @@
 // Weather Section
 async function loadWeather() {
-  const apiKey = '4a57241246f5dbdcfed6bb55c792acbd'; // Replace with your API key
+  const apiKey = '9c0daeb6aebb43fdbeb003eaa83649fa'; 
   const city = document.getElementById('city-input').value || 'Delhi';
 
   try {
