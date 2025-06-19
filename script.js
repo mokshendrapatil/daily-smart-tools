@@ -5,7 +5,7 @@ async function loadWeather() {
 
   try {
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+      `https://corsproxy.io/?https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     );
     const data = await res.json();
 
@@ -23,23 +23,24 @@ async function loadWeather() {
   }
 }
 
-// Quote Section
+
+//  Quote Section (quotable.io)
 async function loadQuote() {
   try {
-    const res = await fetch("https://type.fit/api/quotes");
-    const quotes = await res.json();
-    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    const res = await fetch("https://api.quotable.io/random");
+    const data = await res.json();
 
     document.getElementById('quote').innerHTML = `
       <h2 class="font-bold text-xl">💬 Quote of the Day</h2>
-      <p>"${quote.text}"</p>
-      <p class="text-right italic">– ${quote.author || "Unknown"}</p>
+      <p>"${data.content}"</p>
+      <p class="text-right italic">– ${data.author}</p>
     `;
   } catch (err) {
     document.getElementById('quote').innerText = '⚠️ Failed to load quote.';
     console.error(err);
   }
 }
+
 
 // To-Do Section
 const todoInput = document.getElementById('todo-input');
@@ -61,7 +62,20 @@ todoInput.addEventListener('keypress', function (e) {
 // Dark Mode Toggle
 function toggleDarkMode() {
   document.documentElement.classList.toggle('dark');
+
+  // Optional: Save user's preference
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
 }
+
+// On load, apply saved theme
+if (localStorage.getItem('theme') === 'dark') {
+  document.documentElement.classList.add('dark');
+}
+
 
 // Run on Page Load
 loadWeather();
