@@ -60,17 +60,18 @@ todoInput.addEventListener('keypress', function (e) {
   }
 });
 
-// ✅ Dark Mode Toggle with LocalStorage
 function toggleDarkMode() {
   document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+
+  // Optional: Save user's preference
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
 }
 
-// ✅ Load saved dark mode
+// On load, apply saved theme
 if (localStorage.getItem('theme') === 'dark') {
   document.documentElement.classList.add('dark');
 }
-
-// ✅ Load APIs on page load
-loadQuote();
-loadWeather();
